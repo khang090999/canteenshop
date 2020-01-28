@@ -5,11 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
+
+import static com.spring2020.coffeeshop.util.ConstantUtil.DATE_TIME_PATTERN;
 
 @Getter
 @Setter
@@ -31,8 +34,10 @@ public class StaffDto {
     @Length(min = 12, max = 12, message = "{staff.socialId.length}")
     private String socialId;
 
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
     private LocalDate hireDate;
 
+    @DateTimeFormat(pattern = DATE_TIME_PATTERN)
     private LocalDate terminateDate;
 
     @Valid
