@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.spring2020.coffeeshop</groupId>
     <artifactId>staff_webapp</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>staff_webapp</name>
     <description>Canteen ordering system for staff</description>
 
