@@ -34,7 +34,8 @@ public class Staff extends Audit {
     @Column
     private LocalDate terminateDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "app_user_id")
     private AppUser appUser;
 }

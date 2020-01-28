@@ -9,7 +9,6 @@ public class ConstantUtil {
 
     public static final String DELETE_SUCCESS = "Deleted successful";
 
-    public static final String DEACTIVATE_SUCCESS = "Deactivated successful";
 
-    public static final String REACTIVATE_SUCCESS = "Reactivated successful";
+    public static final String PHONE_REX = "^\\d{10}?";
 }
