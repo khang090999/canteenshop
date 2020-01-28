@@ -1,6 +1,7 @@
 package com.spring2020.coffeeshop.domain.entity;
 
 import com.spring2020.coffeeshop.domain.enums.GenderEnum;
+import com.spring2020.coffeeshop.domain.enums.UserType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,8 +42,14 @@ public class AppUser extends Audit {
     private GenderEnum gender;
 
     @Column(nullable = false)
-    private boolean isActivate;
+    private boolean isActive;
 
     @Column(nullable = false, length = 20)
-    private String userType;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "app_role_id")
+    private AppRole appRole;
+
 }

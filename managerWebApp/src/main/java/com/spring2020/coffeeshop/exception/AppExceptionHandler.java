@@ -6,6 +6,7 @@ import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -57,12 +58,32 @@ public class AppExceptionHandler {
     }
 
     @ResponseBody
+    @ExceptionHandler(value = HttpMessageNotReadableException.class)
+    public ResponseEntity handleException(HttpMessageNotReadableException exception) {
+        logger.error(exception.getMessage());
+        if (exception.getMessage() != null
+                && exception.getMessage().contains("java.time.LocalDate")) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Invalid date must has format: yyyy-mm-dd");
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+
+    @ResponseBody
     @ExceptionHandler(value = DataIntegrityViolationException.class)
     public ResponseEntity handleException(DataIntegrityViolationException exception) {
         logger.error(exception.getMessage());
         if (exception.getRootCause() != null && exception.getRootCause().getMessage() != null
                 && exception.getRootCause().getMessage().contains("FK_Product_Category")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cannot delete this category");
+        }
+        if (exception.getRootCause() != null && exception.getRootCause().getMessage() != null
+                && exception.getRootCause().getMessage().contains("UK_AppUser_UserName")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username must be unique");
+        }
+        if (exception.getRootCause() != null && exception.getRootCause().getMessage() != null
+                && exception.getRootCause().getMessage().contains("UK_Staff_SocialId")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Social ID must be unique");
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
