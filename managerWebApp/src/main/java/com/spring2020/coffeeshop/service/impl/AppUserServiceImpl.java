@@ -18,7 +18,8 @@ import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 @Service
-public class AppUserServiceImpl implements AppUserService {
+public class AppUserServiceImpl implements AppUserService
+{
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -30,19 +31,21 @@ public class AppUserServiceImpl implements AppUserService {
     private ObjectMapper mapper;
 
     @Override
-    public AppUserDto findAppUserById(long id) {
+    public AppUserDto findAppUserById(long id)
+    {
         return mapper.convertValue(findAppUserByIdReturnAppUser(id), AppUserDto.class);
-
     }
 
     @Override
-    public Page<AppUserDto> findAppUserByName(String name, UserType userType, Pageable pageable) {
+    public Page<AppUserDto> findAppUserByName(String name, UserType userType, Pageable pageable)
+    {
         return appUserRepository.findByNameAndUserType(name, userType.toString(), pageable)
                 .map(appUser -> mapper.convertValue(appUser, AppUserDto.class));
     }
 
     @Override
-    public Page<AppUserDto> findAllAppUsers(UserType userType, Pageable pageable) {
+    public Page<AppUserDto> findAllAppUsers(UserType userType, Pageable pageable)
+    {
         return appUserRepository.findByUserType(userType, pageable)
                 .map(appUser -> mapper.convertValue(appUser, AppUserDto.class));
     }
@@ -50,16 +53,20 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     @Transactional
-    public void updateAppUserStatus(UserType userType, long id, boolean status) {
+    public void updateAppUserStatus(UserType userType, long id, boolean status)
+    {
         AppUser appUser = findAppUserByIdReturnAppUser(id);
         appUser.setActive(status);
         appUserRepository.save(appUser);
-        if (userType == UserType.STAFF) {
+        if (userType == UserType.STAFF)
+        {
             Staff staff = staffRepository.findByAppUserId(id)
                     .orElseThrow(() -> new ResourceNotFoundException("Staff not found"));
-            if (status) {
+            if (status)
+            {
                 staff.setTerminateDate(null);
-            } else {
+            } else
+            {
                 staff.setTerminateDate(LocalDate.now());
             }
             staffRepository.save(staff);
@@ -67,7 +74,8 @@ public class AppUserServiceImpl implements AppUserService {
 
     }
 
-    private AppUser findAppUserByIdReturnAppUser(long id) {
+    private AppUser findAppUserByIdReturnAppUser(long id)
+    {
         return appUserRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
     }
