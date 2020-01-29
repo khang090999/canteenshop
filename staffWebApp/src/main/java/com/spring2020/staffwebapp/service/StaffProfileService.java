@@ -3,7 +3,7 @@ package com.spring2020.staffwebapp.service;
 import com.spring2020.staffwebapp.domain.dto.DbResponseDto;
 import com.spring2020.staffwebapp.domain.dto.StaffProfileDto;
 
-public interface StaffService
+public interface StaffProfileService
 {
 
     StaffProfileDto viewStaffProfile(String username);

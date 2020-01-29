@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-public interface ProductService
+public interface ProductRetrieveService
 {
     Page<ProductDto> findAllProducts(Pageable pageable);
 

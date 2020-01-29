@@ -1,7 +1,7 @@
 package com.spring2020.staffwebapp.controller;
 
 import com.spring2020.staffwebapp.domain.dto.ProductDto;
-import com.spring2020.staffwebapp.service.ProductService;
+import com.spring2020.staffwebapp.service.ProductRetrieveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,18 +18,18 @@ public class ProductController
 {
 
     @Autowired
-    private ProductService productService;
+    private ProductRetrieveService productRetrieveService;
 
     @GetMapping
     public Page<ProductDto> showAllAvailableProducts(Pageable pageable)
     {
-        return productService.findAllProducts(pageable);
+        return productRetrieveService.findAllProducts(pageable);
     }
 
     @GetMapping("/details")
     public Optional<ProductDto> showProductDetails(@RequestParam(value = "Product Id") Long id)
     {
-        return productService.showProductDetails(id);
+        return productRetrieveService.showProductDetails(id);
     }
 
     @GetMapping("/find")
@@ -38,7 +38,7 @@ public class ProductController
                                          @RequestParam(value = "Availability") Boolean isAvailable,
                                          Pageable pageable)
     {
-        return productService.findProducts(pageable, name, catetoryId, isAvailable);
+        return productRetrieveService.findProducts(pageable, name, catetoryId, isAvailable);
     }
 
 }
