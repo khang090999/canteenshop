@@ -2,33 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e455a74-e240-4042-ba22-73134f5f7d94" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/domain/dto/StaffCartDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/OrderCheckoutService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/OrderCheckoutServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/saveactions_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/saveactions_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/0/4/046ed951c218c96bf80745bd5e269f16d694104c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/0/705f8d8793de0bb332e0e4e8211bdee2c18a354a" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/8/8878dcce61a3285879faa838f3ab06b3f60a776f" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/b/8bab781cf3782999ece1c48df4dcd2592616dfac" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/8/b/8bab781cf3782999ece1c48df4dcd2592616dfac" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/f/6/f62883f7071b133e6130c54a4256a4286ddaf04e" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/controller/StaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/controller/StaffController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/domain/dto/OrderCheckoutDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/domain/dto/OrderCheckoutDto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/domain/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/domain/dto/ProductDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/domain/dto/StaffProfileDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/domain/dto/StaffProfileDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/ProductRetrieveService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/StaffService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/StaffProfileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/ProductRetrieveServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/StaffServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/StaffProfileServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/messages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/controller/ProductController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/controller/StaffController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/controller/StaffController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/domain/dto/ProductDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/domain/dto/ProductDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/domain/dto/StaffProfileDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/domain/dto/StaffProfileDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/service/ProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/service/StaffService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/service/impl/ProductServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/service/impl/StaffServiceImpl.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/OrderCheckoutServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/OrderCheckoutServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/ProductRetrieveServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/ProductRetrieveServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/StaffProfileServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/StaffProfileServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/service/impl/OrderCheckoutServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/spring2020/staffwebapp/service/impl/OrderCheckoutServiceImpl.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +74,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -161,12 +146,12 @@
           <expand>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3e549f3b" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7d18b982" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
             <path>
               <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@3e549f3b" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@6c6e6e60" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@7d18b982" type="7427dc5b:ServiceModel$ServiceGroupNode" />
+              <item name="com.intellij.execution.services.ServiceModel$ServiceGroupNode@fda66e3a" type="7427dc5b:ServiceModel$ServiceGroupNode" />
             </path>
           </expand>
           <select />
@@ -187,7 +172,8 @@
       <workItem from="1580185123150" duration="3238000" />
       <workItem from="1580188463695" duration="19497000" />
       <workItem from="1580281301835" duration="124000" />
-      <workItem from="1580281526062" duration="14476000" />
+      <workItem from="1580281526062" duration="15078000" />
+      <workItem from="1580448514519" duration="5366000" />
     </task>
     <task id="LOCAL-00001" summary="add find products, view staff profile">
       <created>1580215461872</created>
@@ -231,8 +217,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/OrderCheckoutServiceImpl.java</url>
-          <line>73</line>
-          <option name="timeStamp" value="9" />
+          <line>53</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/OrderCheckoutServiceImpl.java</url>
+          <line>75</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/spring2020/staffwebapp/service/impl/OrderCheckoutServiceImpl.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -241,6 +237,9 @@
         <watch expression="staff.get()" />
         <watch expression="customerRepository.findById(customerId).get()" />
         <watch expression="customerId" />
+        <watch expression="customerOrder" language="JAVA" />
+        <watch expression="orderDetailList" />
+        <watch expression="customerOrder.getId()" />
       </configuration>
     </watches-manager>
   </component>

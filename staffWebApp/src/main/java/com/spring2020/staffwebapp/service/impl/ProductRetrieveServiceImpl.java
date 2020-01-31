@@ -3,7 +3,7 @@ package com.spring2020.staffwebapp.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring2020.staffwebapp.domain.dto.ProductDto;
 import com.spring2020.staffwebapp.repository.ProductRepository;
-import com.spring2020.staffwebapp.service.ProductService;
+import com.spring2020.staffwebapp.service.ProductRetrieveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ProductServiceImpl implements ProductService
+public class ProductRetrieveServiceImpl implements ProductRetrieveService
 {
     @Autowired
     ProductRepository productRepository;

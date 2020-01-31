@@ -17,7 +17,10 @@ public class ProductDto
     @NotNull
     @ApiModelProperty(required = true)
     private Long id;
+    @ApiModelProperty(required = true)
+    private int quantity;
     private String name;
+    @ApiModelProperty(required = true)
     private double price;
     private String description;
     private Category category;

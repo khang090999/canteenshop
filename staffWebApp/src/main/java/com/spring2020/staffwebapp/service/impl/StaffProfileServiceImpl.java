@@ -9,14 +9,14 @@ import com.spring2020.staffwebapp.domain.enums.DbMessageEnum;
 import com.spring2020.staffwebapp.domain.enums.DbStatusEnum;
 import com.spring2020.staffwebapp.repository.AppUserRepository;
 import com.spring2020.staffwebapp.repository.StaffRepository;
-import com.spring2020.staffwebapp.service.StaffService;
+import com.spring2020.staffwebapp.service.StaffProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class StaffServiceImpl implements StaffService
+public class StaffProfileServiceImpl implements StaffProfileService
 {
     @Autowired
     AppUserRepository appUserRepository;
@@ -39,6 +39,7 @@ public class StaffServiceImpl implements StaffService
                 staffProfileDto.setDob(staff.get().getDob());
                 staffProfileDto.setHireDate(staff.get().getHireDate());
                 staffProfileDto.setSocialId(staff.get().getSocialId());
+                staffProfileDto.setStaffId(staff.get().getId());
             }
             staffProfileDto.setUsername(appUser.get().getUsername());
             staffProfileDto.setEmail(appUser.get().getEmail());
