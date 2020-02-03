@@ -76,7 +76,7 @@ public class OrderCheckoutServiceImpl implements OrderCheckoutService
         CustomerOrder customerOrder = new CustomerOrder();
 
         /*Get Staff*/
-        Optional<Staff> staff = getStaff(request.getStaffCart().getStaffUsername());
+        Optional<Staff> staff = getStaff(request.getCart().getStaffUsername());
         /*=============*/
 
 //        Staff's customer Id
@@ -87,7 +87,7 @@ public class OrderCheckoutServiceImpl implements OrderCheckoutService
 //        Total price for customer order table
         double totalPrice = 0;
         for (ProductDto productDto :
-                request.getStaffCart().getProductList())
+                request.getCart().getProductList())
         {
             totalPrice += productDto.getPrice() * productDto.getQuantity();
         }
@@ -115,7 +115,7 @@ public class OrderCheckoutServiceImpl implements OrderCheckoutService
         List<OrderDetail> orderDetailList = new ArrayList<>();
         OrderDetail orderDetail;
         for (ProductDto productDto :
-                request.getStaffCart().getProductList())
+                request.getCart().getProductList())
         {
             orderDetail = new OrderDetail();
             orderDetail.setQuantity(productDto.getQuantity());

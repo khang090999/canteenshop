@@ -22,5 +22,5 @@ public class OrderCheckoutDto
     @NotNull(message = "{field.notNull}")
     private String note;
     private OrderStatus status;
-    private StaffCartDto staffCart;
+    private StaffCartDto cart;
 }
