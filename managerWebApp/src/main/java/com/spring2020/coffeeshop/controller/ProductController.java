@@ -3,8 +3,11 @@ package com.spring2020.coffeeshop.controller;
 import com.spring2020.coffeeshop.domain.dto.ProductDto;
 import com.spring2020.coffeeshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,9 +33,17 @@ public class ProductController {
         return UPDATE_SUCCESS;
     }
 
-    @GetMapping("/{id}")
-    public ProductDto findProductById(@PathVariable(value = "id") long id) {
-        return productService.findProductById(id);
+    @GetMapping("/{id}/data")
+    public ProductDto findProductDataById(@PathVariable(value = "id") long id) {
+        return productService.findProductDataById(id);
+    }
+
+    @GetMapping("/{id}/img")
+    public ResponseEntity<Object> findProductImageById(@PathVariable(value = "id") long id) {
+        Resource fileSystemResource = productService.findProductImageById(id);
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(fileSystemResource);
     }
 
     @GetMapping

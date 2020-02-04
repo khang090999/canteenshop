@@ -2,6 +2,7 @@ package com.spring2020.coffeeshop.service.impl;
 
 import com.spring2020.coffeeshop.exception.ResourceNotFoundException;
 import com.spring2020.coffeeshop.repository.CancelReasonRepository;
+import com.spring2020.coffeeshop.service.CancelReasonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

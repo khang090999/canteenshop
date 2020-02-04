@@ -1,6 +1,7 @@
 package com.spring2020.coffeeshop.service;
 
 import com.spring2020.coffeeshop.domain.dto.ProductDto;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,7 +11,9 @@ public interface ProductService {
 
     void updateProduct(long id, ProductDto productDto);
 
-    ProductDto findProductById(long id);
+    ProductDto findProductDataById(long id);
+
+    Resource findProductImageById(long id);
 
     Page<ProductDto> findAllProduct(Pageable pageable);
 

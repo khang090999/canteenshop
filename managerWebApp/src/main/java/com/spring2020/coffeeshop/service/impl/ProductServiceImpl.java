@@ -8,9 +8,15 @@ import com.spring2020.coffeeshop.exception.ResourceNotFoundException;
 import com.spring2020.coffeeshop.repository.ProductRepository;
 import com.spring2020.coffeeshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.io.File;
+
+import static com.spring2020.coffeeshop.util.ConstantUtil.IMAGE_DIRECTORY;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -48,8 +54,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findProductById(long id) {
+    public ProductDto findProductDataById(long id) {
         return mapper.convertValue(findProductByIdReturnProduct(id), ProductDto.class);
+    }
+
+    @Override
+    public Resource findProductImageById(long id) {
+        String imageURL = findProductByIdReturnProduct(id).getProductImage().getImgUrl();
+        File file = new File(IMAGE_DIRECTORY + imageURL);
+        return new FileSystemResource(file);
     }
 
     @Override
