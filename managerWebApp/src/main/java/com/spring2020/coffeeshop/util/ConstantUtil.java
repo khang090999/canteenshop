@@ -12,4 +12,7 @@ public class ConstantUtil {
     public static final String PHONE_REX = "^\\d{10}?";
 
     public static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+    public static final String IMAGE_DIRECTORY = "C:\\Users\\ADMIN\\Desktop\\test\\";
+
 }
