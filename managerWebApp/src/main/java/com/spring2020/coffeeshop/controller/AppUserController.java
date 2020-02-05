@@ -12,6 +12,7 @@ import static com.spring2020.coffeeshop.util.ConstantUtil.UPDATE_SUCCESS;
 
 @RestController
 @RequestMapping("/appUsers")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AppUserController {
 
     @Autowired

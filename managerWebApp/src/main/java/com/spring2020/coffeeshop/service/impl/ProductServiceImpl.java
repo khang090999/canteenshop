@@ -6,6 +6,7 @@ import com.spring2020.coffeeshop.domain.entity.Product;
 import com.spring2020.coffeeshop.domain.entity.ProductImage;
 import com.spring2020.coffeeshop.exception.MissingInputException;
 import com.spring2020.coffeeshop.exception.ResourceNotFoundException;
+import com.spring2020.coffeeshop.exception.UploadFileException;
 import com.spring2020.coffeeshop.repository.ProductRepository;
 import com.spring2020.coffeeshop.service.ProductService;
 import com.spring2020.coffeeshop.util.FileAccessUtil;
@@ -67,8 +68,13 @@ public class ProductServiceImpl implements ProductService {
         if (file == null) {
             throw new MissingInputException("missing input");
         }
-        Product updatingProduct = findProductByIdReturnProduct(id);
         String fileName = System.currentTimeMillis() + file.getOriginalFilename();
+        if (!fileName.contains(".") ||
+                !(fileName.substring(fileName.indexOf('.') + 1).equals("jpg")
+                        || fileName.substring(fileName.indexOf('.') + 1).equals("png"))) {
+            throw new UploadFileException("Invalid image file must be .jpg or .png");
+        }
+        Product updatingProduct = findProductByIdReturnProduct(id);
         File destFile = FileAccessUtil.createFile(IMAGE_DIRECTORY + fileName);
         FileAccessUtil.copyFile(destFile, file);
         if (updatingProduct.getProductImage().getImgUrl().equals(DEFAULT_IMG)) {

@@ -17,6 +17,7 @@ import static com.spring2020.coffeeshop.util.ConstantUtil.UPDATE_SUCCESS;
 
 @RestController
 @RequestMapping("/products")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
 
     @Autowired

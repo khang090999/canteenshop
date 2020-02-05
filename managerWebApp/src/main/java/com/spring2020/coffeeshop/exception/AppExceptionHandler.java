@@ -40,6 +40,21 @@ public class AppExceptionHandler {
     }
 
     @ResponseBody
+    @ExceptionHandler(value = UploadFileException.class)
+    public ResponseEntity handleException(UploadFileException exception) {
+        logger.error(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+    }
+
+
+    @ResponseBody
+    @ExceptionHandler(value = FileAccessException.class)
+    public ResponseEntity handleException(FileAccessException exception) {
+        logger.error(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+    }
+
+    @ResponseBody
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity handleException(MethodArgumentNotValidException exception) {
         Map<String, String> errors = new HashMap<>();
