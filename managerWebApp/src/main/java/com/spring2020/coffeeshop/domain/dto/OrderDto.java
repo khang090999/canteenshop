@@ -26,5 +26,5 @@ public class OrderDto {
 
     private OrderStatusDto status;
 
-    private StaffDto staff;
+    private OrderStaffDto staff;
 }

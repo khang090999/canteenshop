@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+import static com.spring2020.coffeeshop.util.ConstantUtil.CREATE_SUCCESS;
+
 @RestController
 @RequestMapping("/staffs")
 public class StaffController {
@@ -18,8 +20,9 @@ public class StaffController {
     private StaffService staffService;
 
     @PostMapping
-    public StaffDto createStaff(@Valid @RequestBody StaffDto staffDto) {
-        return staffService.createStaff(staffDto);
+    public String createStaff(@Valid @RequestBody StaffDto staffDto) {
+        staffService.createStaff(staffDto);
+        return CREATE_SUCCESS;
     }
 
 

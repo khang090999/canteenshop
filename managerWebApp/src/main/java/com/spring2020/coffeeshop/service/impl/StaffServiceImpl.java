@@ -6,10 +6,10 @@ import com.spring2020.coffeeshop.domain.entity.AppRole;
 import com.spring2020.coffeeshop.domain.entity.Staff;
 import com.spring2020.coffeeshop.domain.enums.UserType;
 import com.spring2020.coffeeshop.exception.MissingInputException;
-import com.spring2020.coffeeshop.exception.ResourceNotFoundException;
 import com.spring2020.coffeeshop.repository.StaffRepository;
 import com.spring2020.coffeeshop.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,8 +23,11 @@ public class StaffServiceImpl implements StaffService {
     @Autowired
     private ObjectMapper mapper;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     @Override
-    public StaffDto createStaff(StaffDto staffDto) {
+    public void createStaff(StaffDto staffDto) {
         if (staffDto == null) {
             throw new MissingInputException("missing input");
         }
@@ -34,23 +37,9 @@ public class StaffServiceImpl implements StaffService {
         staff.setHireDate(LocalDate.now());
         AppRole role = new AppRole(1, "ROLE_STAFF");
         staff.getAppUser().setAppRole(role);
-        Staff savedStaff = staffRepository.save(staff);
-        return mapper.convertValue(savedStaff, StaffDto.class);
-    }
-
-    @Override
-    public void updateStaffStatus(Long id, boolean status) {
-        Staff staff = findStaffByIdReturnStaff(id);
-        if (!status) {
-            staff.setTerminateDate(LocalDate.now());
-        } else {
-            staff.setTerminateDate(null);
-        }
+        staff.getAppUser().setPassword(encoder.encode(staff.getAppUser().getPassword()));
         staffRepository.save(staff);
     }
 
-    private Staff findStaffByIdReturnStaff(long id) {
-        return staffRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Staff with id " + id + " not found"));
-    }
+
 }
