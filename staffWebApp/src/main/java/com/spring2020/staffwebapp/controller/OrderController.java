@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderController
 {
     @Autowired
