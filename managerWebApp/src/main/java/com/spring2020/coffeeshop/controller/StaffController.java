@@ -12,6 +12,7 @@ import static com.spring2020.coffeeshop.util.ConstantUtil.CREATE_SUCCESS;
 
 @RestController
 @RequestMapping("/staffs")
+@CrossOrigin(origins = "http://localhost:3000")
 public class StaffController {
 
     @Autowired
