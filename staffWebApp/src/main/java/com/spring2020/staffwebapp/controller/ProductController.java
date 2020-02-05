@@ -29,6 +29,7 @@ public class ProductController
         return productRetrieveService.findAllProducts(pageable);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/details")
     public Optional<ProductDto> showProductDetails(@RequestParam(value = "Product Id") Long id)
     {
