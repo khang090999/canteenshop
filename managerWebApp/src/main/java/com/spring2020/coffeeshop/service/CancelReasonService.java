@@ -1,7 +1,10 @@
 package com.spring2020.coffeeshop.service;
 
 
+import com.spring2020.coffeeshop.domain.dto.CancelReasonDto;
+
 public interface CancelReasonService {
 
-    String findCancelReasonByOrderId(long orderId);
+
+    CancelReasonDto findCancelReasonByOrderId(long orderId);
 }

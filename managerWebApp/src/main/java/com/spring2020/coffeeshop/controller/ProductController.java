@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -26,10 +27,17 @@ public class ProductController {
         return productService.createProduct(productDto);
     }
 
-    @PutMapping("/{id}")
-    public String updateProduct(@PathVariable(value = "id") long id,
-                                @Valid @RequestBody ProductDto productDto) {
-        productService.updateProduct(id, productDto);
+    @PutMapping("/{id}/data")
+    public String updateProductData(@PathVariable(value = "id") long id,
+                                    @Valid @RequestBody ProductDto productDto) {
+        productService.updateProductData(id, productDto);
+        return UPDATE_SUCCESS;
+    }
+
+    @PutMapping("/{id}/img")
+    public String updateProductImage(@PathVariable(value = "id") long id,
+                                     @RequestParam MultipartFile file) {
+        productService.updateProductImage(id, file);
         return UPDATE_SUCCESS;
     }
 
@@ -50,11 +58,9 @@ public class ProductController {
     public Page<ProductDto> findProduct(@RequestParam(required = false, value = "name") String name,
                                         @RequestParam(required = false, value = "category") String category,
                                         Pageable pageable) {
-        if (name != null) {
-            return productService.findProductByName(name, pageable);
-        }
-        if (category != null) {
-            return productService.findProductByCategory(category, pageable);
+        if (name != null || category != null) {
+            //todo
+            return null;
         }
         return productService.findAllProduct(pageable);
     }
