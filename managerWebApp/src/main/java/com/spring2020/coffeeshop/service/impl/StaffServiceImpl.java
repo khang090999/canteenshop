@@ -1,7 +1,8 @@
 package com.spring2020.coffeeshop.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.spring2020.coffeeshop.domain.dto.StaffDto;
+import com.spring2020.coffeeshop.domain.dto.StaffCreateDto;
+import com.spring2020.coffeeshop.domain.dto.StaffDetailDto;
 import com.spring2020.coffeeshop.domain.entity.AppRole;
 import com.spring2020.coffeeshop.domain.entity.Staff;
 import com.spring2020.coffeeshop.domain.enums.UserType;
@@ -27,7 +28,7 @@ public class StaffServiceImpl implements StaffService {
     private BCryptPasswordEncoder encoder;
 
     @Override
-    public void createStaff(StaffDto staffDto) {
+    public void createStaff(StaffCreateDto staffDto) {
         if (staffDto == null) {
             throw new MissingInputException("missing input");
         }
@@ -39,6 +40,11 @@ public class StaffServiceImpl implements StaffService {
         staff.getAppUser().setAppRole(role);
         staff.getAppUser().setPassword(encoder.encode(staff.getAppUser().getPassword()));
         staffRepository.save(staff);
+    }
+
+    @Override
+    public StaffDetailDto findStaffByUsername(String username) {
+        return mapper.convertValue(staffRepository.findByUserName(username), StaffDetailDto.class);
     }
 
 

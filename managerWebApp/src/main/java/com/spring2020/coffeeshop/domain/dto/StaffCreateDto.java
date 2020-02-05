@@ -20,7 +20,7 @@ import static com.spring2020.coffeeshop.util.ConstantUtil.SOCIAL_ID_REX;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StaffDto {
+public class StaffCreateDto {
 
     private Long id;
 
@@ -44,5 +44,5 @@ public class StaffDto {
 
     @Valid
     @NotNull
-    private StaffAppUserDto appUser;
+    private AppUserCreateDto appUser;
 }

@@ -17,7 +17,7 @@ import static com.spring2020.coffeeshop.util.ConstantUtil.PHONE_REX;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StaffAppUserDto {
+public class AppUserCreateDto {
 
     private Long id;
 
