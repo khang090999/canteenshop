@@ -10,9 +10,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 
 import static com.spring2020.coffeeshop.util.ConstantUtil.DATE_TIME_PATTERN;
+import static com.spring2020.coffeeshop.util.ConstantUtil.SOCIAL_ID_REX;
 
 @Getter
 @Setter
@@ -31,7 +33,7 @@ public class StaffDto {
     private String address;
 
     @NotNull(message = "{staff.socialId.notNull}")
-    @Length(min = 12, max = 12, message = "{staff.socialId.length}")
+    @Pattern(regexp = SOCIAL_ID_REX, message = "{staff.socialId.pattern}")
     private String socialId;
 
     @DateTimeFormat(pattern = DATE_TIME_PATTERN)
