@@ -114,18 +114,27 @@ public class OrderInfoServiceImpl implements OrderInfoService
             if (orderStatusOptional.isPresent())
             {
                 CustomerOrder customerOrder = customerOrderOptional.get();
-                customerOrder.setStatus(orderStatusOptional.get());
-                try
+                /*Check if order is canceled or completed.
+                 * NOT allowed to change canceled or completed orders*/
+                if (customerOrder.getStatus().getId().equals(OrderStatusEnum.Completed.getId())
+                        || customerOrder.getStatus().getId().equals(OrderStatusEnum.Canceled.getId()))
                 {
-                    customerOrderRepository.save(customerOrder);
-                    dbResponseDto.setDbStatus(DbStatusEnum.SUCCESS.getCode());
-                    dbResponseDto.setDbMessage(DbMessageEnum.SUCCESS.getMessage());
-                    dbResponseDto.setReason(DbMessageEnum.SUCCESS.getMessage());
-                } catch (Exception e)
+                    customerOrder.setStatus(orderStatusOptional.get());
+                    try
+                    {
+                        customerOrderRepository.save(customerOrder);
+                        dbResponseDto.setDbStatus(DbStatusEnum.SUCCESS.getCode());
+                        dbResponseDto.setDbMessage(DbMessageEnum.SUCCESS.getMessage());
+                        dbResponseDto.setReason(DbMessageEnum.SUCCESS.getMessage());
+                    } catch (Exception e)
+                    {
+                        dbResponseDto.setDbStatus(DbStatusEnum.FAILED.getCode());
+                        dbResponseDto.setDbMessage(DbMessageEnum.FAILED.getMessage());
+                        dbResponseDto.setReason(e.getMessage());
+                    }
+                } else
                 {
-                    dbResponseDto.setDbStatus(DbStatusEnum.FAILED.getCode());
-                    dbResponseDto.setDbMessage(DbMessageEnum.FAILED.getMessage());
-                    dbResponseDto.setReason(e.getMessage());
+                    dbResponseDto.setReason(InputValidateMessageEnum.CHANGE_ORDER_STT_COMPLETED_CANCELED.getMessage());
                 }
             } else
             {

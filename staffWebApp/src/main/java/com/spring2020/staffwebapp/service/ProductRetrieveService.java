@@ -12,5 +12,5 @@ public interface ProductRetrieveService
 
     Page<ProductDto> findProducts(Pageable pageable, String name, Integer categoryId, Boolean isAvailable);
 
-    Optional<ProductDto> showProductDetails(Long id);
+    ProductDto showProductDetails(Long id);
 }

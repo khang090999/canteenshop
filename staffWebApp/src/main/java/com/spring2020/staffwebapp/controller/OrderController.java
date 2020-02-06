@@ -55,7 +55,7 @@ public class OrderController
     @PostMapping("/editStatus")
     @ApiOperation(value = "Change an order status")
     public DbResponseDto editOrderStatus(
-            @RequestParam(value = "Id") @ApiParam(required = true, value = "Order id") long id
+            @RequestParam(value = "Id") @ApiParam(required = true, value = "Order id", example = "1") long id
             , @RequestParam(value = "Status") @ApiParam(example = "Pending", required = true, value = "Status") OrderStatusEnum orderStatusEnum)
     {
         return orderInfoService.editOrderStatus(id, orderStatusEnum);

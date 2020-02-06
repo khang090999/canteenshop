@@ -50,9 +50,10 @@ public class ProductRetrieveServiceImpl implements ProductRetrieveService
     }
 
     @Override
-    public Optional<ProductDto> showProductDetails(Long id)
+    public ProductDto showProductDetails(Long id)
     {
-        return productRepository.findById(id)
+        Optional<ProductDto> productDtoOptional = productRepository.findById(id)
                 .map(product -> objectMapper.convertValue(product, ProductDto.class));
+        return productDtoOptional.orElseGet(ProductDto::new);
     }
 }

@@ -23,7 +23,7 @@ public class ProductController
     @Autowired
     private ProductEditService productEditService;
 
-    @GetMapping
+    @GetMapping("/all")
     public Page<ProductDto> showAllAvailableProducts(Pageable pageable)
     {
         return productRetrieveService.findAllProducts(pageable);
@@ -31,14 +31,14 @@ public class ProductController
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/details")
-    public Optional<ProductDto> showProductDetails(@RequestParam(value = "Product Id") Long id)
+    public ProductDto showProductDetails(@RequestParam(value = "ProductId") long id)
     {
         return productRetrieveService.showProductDetails(id);
     }
 
     @GetMapping("/search")
     @ApiOperation(value = "Will search based on what is entered")
-    public Page<ProductDto> searchProducts(@RequestParam(value = "Product name", required = false) String name,
+    public Page<ProductDto> searchProducts(@RequestParam(value = "ProductName", required = false) String name,
                                            @RequestParam(value = "Category", required = false) Integer categoryId,
                                            @RequestParam(value = "Availability") @ApiParam(example = "true", required = true, value = "Status") Boolean isAvailable,
                                            Pageable pageable)
@@ -46,9 +46,9 @@ public class ProductController
         return productRetrieveService.findProducts(pageable, name, categoryId, isAvailable);
     }
 
-    @PostMapping
+    @PostMapping("/update")
     @ApiOperation(value = "Update product availability")
-    public DbResponseDto editProductAvailability(@RequestParam(value = "Product id") long id, @RequestParam(value = "isAvailable") boolean isAvailable)
+    public DbResponseDto editProductAvailability(@RequestParam(value = "ProductId") long id, @RequestParam(value = "isAvailable") boolean isAvailable)
     {
         return productEditService.editProductAvailability(id, isAvailable);
     }
