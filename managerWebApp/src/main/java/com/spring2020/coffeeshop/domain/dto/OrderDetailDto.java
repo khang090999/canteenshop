@@ -1,6 +1,5 @@
 package com.spring2020.coffeeshop.domain.dto;
 
-import com.spring2020.coffeeshop.domain.ProductForOrderDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
