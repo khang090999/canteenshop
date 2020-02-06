@@ -27,10 +27,6 @@ public class StaffWebAppApplication
             {
                 String frontendPort = "http://localhost:3000";
                 registry.addMapping("/**").allowedOrigins(frontendPort);
-//                registry.addMapping("/order/").allowedOrigins(frontendPort);
-//                registry.addMapping("/products/").allowedOrigins(frontendPort);
-//                registry.addMapping("/staffs/").allowedOrigins(frontendPort);
-
             }
         };
     }
