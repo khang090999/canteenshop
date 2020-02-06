@@ -2,10 +2,7 @@ package com.spring2020.staffwebapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -17,21 +14,4 @@ public class StaffWebAppApplication
         SpringApplication.run(StaffWebAppApplication.class, args);
     }
 
-    @Bean
-    public WebMvcConfigurer corsConfigurer()
-    {
-        return new WebMvcConfigurer()
-        {
-            @Override
-            public void addCorsMappings(CorsRegistry registry)
-            {
-                String frontendPort = "http://localhost:3000";
-                registry.addMapping("/categories").allowedOrigins(frontendPort);
-                registry.addMapping("/order").allowedOrigins(frontendPort);
-                registry.addMapping("/products").allowedOrigins(frontendPort);
-                registry.addMapping("/staffs").allowedOrigins(frontendPort);
-
-            }
-        };
-    }
 }

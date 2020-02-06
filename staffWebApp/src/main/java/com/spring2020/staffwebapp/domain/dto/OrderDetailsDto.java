@@ -1,9 +1,6 @@
 package com.spring2020.staffwebapp.domain.dto;
 
-import com.spring2020.staffwebapp.domain.entity.Customer;
-import com.spring2020.staffwebapp.domain.entity.OrderDetail;
-import com.spring2020.staffwebapp.domain.entity.OrderStatus;
-import com.spring2020.staffwebapp.domain.entity.Staff;
+import com.spring2020.staffwebapp.domain.entity.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +10,7 @@ import java.util.List;
 @Setter
 @Getter
 @NoArgsConstructor
-public class OrderDetailsDto
+public class OrderDetailsDto extends AuditDto
 {
     private Long id;
     private String location;
