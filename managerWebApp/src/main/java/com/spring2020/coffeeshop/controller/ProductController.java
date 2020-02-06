@@ -57,7 +57,7 @@ public class ProductController {
 
     @GetMapping
     public Page<ProductDto> findProduct(@RequestParam(required = false, value = "name") String name,
-                                        @RequestParam(required = false, value = "category") Integer categoryId,
+                                        @RequestParam(required = false, value = "categoryId") Integer categoryId,
                                         Pageable pageable) {
         if (name != null || categoryId != null) {
             return productService.findProductByNameOrCategory(name, categoryId, pageable);
