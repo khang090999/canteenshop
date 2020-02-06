@@ -17,7 +17,6 @@ import static com.spring2020.coffeeshop.util.ConstantUtil.UPDATE_SUCCESS;
 
 @RestController
 @RequestMapping("/products")
-@CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
 
     @Autowired
@@ -57,11 +56,10 @@ public class ProductController {
 
     @GetMapping
     public Page<ProductDto> findProduct(@RequestParam(required = false, value = "name") String name,
-                                        @RequestParam(required = false, value = "category") String category,
+                                        @RequestParam(required = false, value = "categoryId") Integer categoryId,
                                         Pageable pageable) {
-        if (name != null || category != null) {
-            //todo
-            return null;
+        if (name != null || categoryId != null) {
+            return productService.findProductByNameOrCategory(name, categoryId, pageable);
         }
         return productService.findAllProduct(pageable);
     }

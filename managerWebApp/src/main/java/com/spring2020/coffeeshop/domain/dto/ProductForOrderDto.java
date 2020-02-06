@@ -1,4 +1,4 @@
-package com.spring2020.coffeeshop.domain;
+package com.spring2020.coffeeshop.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

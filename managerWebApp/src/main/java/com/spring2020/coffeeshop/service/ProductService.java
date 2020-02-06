@@ -20,6 +20,6 @@ public interface ProductService {
 
     Page<ProductDto> findAllProduct(Pageable pageable);
 
-    Page<ProductDto> findProductByNameOrCategory(String name, long categoryId, Pageable pageable);
+    Page<ProductDto> findProductByNameOrCategory(String name, Integer categoryId, Pageable pageable);
 
 }

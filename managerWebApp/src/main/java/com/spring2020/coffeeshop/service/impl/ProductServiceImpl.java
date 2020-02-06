@@ -106,8 +106,10 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<ProductDto> findProductByNameOrCategory(String name, long categoryId, Pageable pageable) {
-        return null;
+    public Page<ProductDto> findProductByNameOrCategory(String name, Integer categoryId, Pageable pageable) {
+        return productRepository
+                .findProducts(name == null ? "" : name + "%", categoryId == null ? "" : categoryId.toString(), pageable)
+                .map(product -> mapper.convertValue(product, ProductDto.class));
     }
 
 
