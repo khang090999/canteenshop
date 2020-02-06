@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderDto {
+public class OrderDto extends AuditDto {
 
     private Long id;
 
