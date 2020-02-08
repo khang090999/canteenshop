@@ -3,6 +3,7 @@ package com.spring2020.customerapp.controller;
 import com.spring2020.customerapp.domain.dto.OrderDetailDto;
 import com.spring2020.customerapp.domain.dto.OrderDto;
 import com.spring2020.customerapp.service.OrderService;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +33,7 @@ public class OrderController {
     };
 
     @GetMapping("/{id}/history")
-    Page<OrderDto> viewOrderHistory(Pageable pageable, @PathVariable("id") int customerId) {
+    Page<OrderDto> viewOrderHistory(Pageable pageable, @PathVariable("id") @ApiParam(value = "Customer Id") int customerId) {
         return orderService.viewOrderHistory(pageable, customerId);
     };
 }

@@ -10,8 +10,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+    @Query(value =
+            "SELECT * FROM product WHERE is_available = :isAvailable and name like %:name%",
+            countQuery = "SELECT count(*) FROM product",
+            nativeQuery = true)
     Page<Product> findByNameContainingAndAvailable(String name, boolean isAvailable, Pageable pageable);
 
-    Page<Product> findAllByAvailable(boolean isAvailable, Pageable pageable);
+    @Query(value =
+            "SELECT * FROM product WHERE is_available = :isAvailable",
+            countQuery = "SELECT count(*) FROM product",
+            nativeQuery = true)
+    Page<Product> findByAvailable(boolean isAvailable, Pageable pageable);
 
 }
