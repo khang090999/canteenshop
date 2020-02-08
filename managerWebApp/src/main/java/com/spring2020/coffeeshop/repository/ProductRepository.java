@@ -10,18 +10,17 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Page<Product> findByNameContaining(String name, Pageable pageable);
-
-
     @Query(value =
-            "SELECT p.* FROM category c\n" +
-                    "JOIN product p \n" +
-                    "ON  c.id = p.category_id and c.name LIKE :categoryName",
-            countQuery =
-                    "SELECT count(p.id) FROM category c\n" +
-                            "JOIN product p \n" +
-                            "ON  c.id = p.category_id and c.name LIKE :categoryName",
-            nativeQuery = true)
-    Page<Product> findByCategory(String categoryName, Pageable pageable);
+            "SELECT * FROM coffee_shop.product p\n" +
+                    "where 0=0\n" +
+                    "and (p.name like ?1 or ?1 like '')\n" +
+                    "and (p.category_id = ?2 or ?2 like '')"
+            , countQuery =
+            "SELECT count(*) FROM coffee_shop.product p\n" +
+                    "where 0=0\n" +
+                    "and (p.name like ?1 or ?1 like '')\n" +
+                    "and (p.category_id = ?2 or ?2 like '')"
+            , nativeQuery = true)
+    Page<Product> findProducts(String name, String categoryId, Pageable pageable);
 
 }

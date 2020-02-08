@@ -16,6 +16,6 @@ public class OrderDetailDto {
 
     private int quantity;
 
-    private ProductDto product;
+    private ProductForOrderDto product;
 
 }
