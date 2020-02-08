@@ -15,7 +15,12 @@ public interface ProductRepository extends JpaRepository<Product, Long>
             "where 0=0\n" +
             "and (p.name like ?1 or ?1 like '')\n" +
             "and (p.category_id = ?2 or ?2 like '')\n" +
-            "and (p.is_available = ?3 or false)", nativeQuery = true)
+            "and (p.is_available = ?3 or false)"
+            , countQuery = "SELECT count(*) FROM coffee_shop.product p\n" +
+            "where 0=0\n" +
+            "and (p.name like ?1 or ?1 like '')\n" +
+            "and (p.category_id = ?2 or ?2 like '')\n" +
+            "and (p.is_available = ?3 or false)"
+            , nativeQuery = true)
     Page<Product> findProducts(String name, String categoryId, boolean isAvailable, Pageable pageable);
-
 }
