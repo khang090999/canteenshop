@@ -1,5 +1,6 @@
 package com.spring2020.customerapp.domain.dto;
 
+import com.spring2020.customerapp.domain.entity.Customer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +28,6 @@ public class OrderDto {
     private OrderStatusDto status;
 
     private StaffDto staff;
+
+    private Customer customer;
 }

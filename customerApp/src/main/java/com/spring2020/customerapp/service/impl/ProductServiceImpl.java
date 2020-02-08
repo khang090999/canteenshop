@@ -18,12 +18,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<ProductDto> findProduct(Pageable pageable, String name) {
 
-        if(!name.isEmpty() || name != null) {
-            return productRepository.findByNameContainingAndAvailable(name, true, pageable)
-                    .map(product -> ProductMapper.INSTANCE.toDto(product));
+        if(name != null) {
+            if (!name.isEmpty()) {
+                return productRepository.findByNameContainingAndAvailable(name, true, pageable)
+                        .map(product -> ProductMapper.INSTANCE.toDto(product));
+            }
         }
 
-        return productRepository.findAllByAvailable(true, pageable)
+        return productRepository.findByAvailable(true, pageable)
                 .map(product -> ProductMapper.INSTANCE.toDto(product));
 
     }
