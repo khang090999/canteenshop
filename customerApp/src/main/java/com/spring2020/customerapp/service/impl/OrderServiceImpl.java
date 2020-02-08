@@ -1,20 +1,25 @@
 package com.spring2020.customerapp.service.impl;
 
+import com.spring2020.customerapp.domain.dto.CreateOrderDto;
+import com.spring2020.customerapp.domain.dto.NewOrderDetailDto;
 import com.spring2020.customerapp.domain.dto.OrderDetailDto;
 import com.spring2020.customerapp.domain.dto.OrderDto;
 import com.spring2020.customerapp.domain.entity.CustomerOrder;
+import com.spring2020.customerapp.domain.entity.OrderDetail;
 import com.spring2020.customerapp.domain.entity.OrderStatus;
 import com.spring2020.customerapp.domain.enums.OrderStatusEnum;
+import com.spring2020.customerapp.exception.CommonException;
 import com.spring2020.customerapp.exception.MissingInputException;
-import com.spring2020.customerapp.repository.CustomerOrderRepository;
-import com.spring2020.customerapp.repository.OrderDetailRepository;
-import com.spring2020.customerapp.repository.OrderStatusRepository;
+import com.spring2020.customerapp.exception.ResourceNotFoundException;
+import com.spring2020.customerapp.repository.*;
 import com.spring2020.customerapp.service.OrderService;
 import com.spring2020.customerapp.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -29,17 +34,48 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private CustomerOrderRepository customerOrderRepository;
 
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
-    public OrderDto createOrder(OrderDto orderDto) {
+    public OrderDto createOrder(CreateOrderDto orderDto) {
+        try {
+            if (orderDto == null) {
+                throw new MissingInputException("missing input");
+            }
+            if(!customerRepository.findById(orderDto.getCustomerId()).isPresent()) {
+                throw new CommonException("CustomerId not Available");
+            }
+            if (orderDto.getId() != null) {
+                throw new CommonException("OrderDetail's Id must be empty");
+            }
+            List<NewOrderDetailDto> listDetail = orderDto.getOrderDetails();
+            for (NewOrderDetailDto newOrderDetailDto : listDetail) {
+                if (!productRepository.findById(newOrderDetailDto.getProduct().getId()).isPresent())
+                    throw new CommonException("ProductId not Available");
+            }
 
-        if (orderDto == null) {
-            throw new MissingInputException("missing input");
+            CustomerOrder customerOrder = OrderMapper.INSTANCE.toEntity(orderDto);
+
+            if (customerOrder.getStatus() != null) {
+                customerOrder.getStatus().setStatus(OrderStatusEnum.Pending);
+            } else {
+                OrderStatus newOrderStatus = new OrderStatus(1, OrderStatusEnum.Pending);
+                customerOrder.setStatus(newOrderStatus);
+            }
+
+            OrderDto savedOrder = OrderMapper.INSTANCE.toOrderDto(customerOrderRepository.saveAndFlush(customerOrder));
+            return savedOrder;
+        } catch (MissingInputException e) {
+            throw e;
+        } catch (CommonException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new CommonException("ERROR");
         }
-        CustomerOrder customerOrder = OrderMapper.INSTANCE.toEntity(orderDto);
-        customerOrder.getStatus().setStatus(OrderStatusEnum.Pending);
-
-        OrderDto savedOrder = OrderMapper.INSTANCE.toDto(customerOrderRepository.saveAndFlush(customerOrder));
-        return savedOrder;
 
     }
 
@@ -62,13 +98,13 @@ public class OrderServiceImpl implements OrderService {
 //            return new OrderDetailDto();
 //        }
 
-        return OrderMapper.INSTANCE.toDto(orderDetailRepository.getOne(id));
+        return OrderMapper.INSTANCE.toDetailDto(orderDetailRepository.getOne(id));
     }
 
     @Override
     public Page<OrderDto> viewOrderHistory(Pageable pageable, int customerId) {
         return customerOrderRepository.findCustomerOrdersByCustomer(customerId, pageable)
-                .map(order -> OrderMapper.INSTANCE.toDto(order));
+                .map(order -> OrderMapper.INSTANCE.toOrderDto(order));
     }
 
 

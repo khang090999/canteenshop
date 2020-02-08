@@ -88,5 +88,10 @@ public class AppExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
-
+    @ResponseBody
+    @ExceptionHandler(value = CommonException.class)
+    public ResponseEntity handleException(CommonException exception) {
+        logger.error(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+    }
 }
