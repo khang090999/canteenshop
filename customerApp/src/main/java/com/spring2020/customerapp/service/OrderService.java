@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 public interface OrderService {
     OrderDto createOrder(CreateOrderDto orderDto);
 
-    void cancelOrder(int id);
+    void cancelOrder(Long id);
 
     OrderDetailDto viewOrderDetail(Long id);
 
