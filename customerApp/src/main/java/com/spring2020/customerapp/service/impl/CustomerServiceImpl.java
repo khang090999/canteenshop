@@ -8,7 +8,9 @@ import com.spring2020.customerapp.mapper.CustomerMapper;
 import com.spring2020.customerapp.repository.CustomerRepository;
 import com.spring2020.customerapp.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
