@@ -1,10 +1,13 @@
 package com.spring2020.customerapp.service.impl;
 
-import com.spring2020.customerapp.domain.dto.AppUserDto;
-import com.spring2020.customerapp.domain.dto.CustomerDto;
+import com.spring2020.customerapp.domain.dto.*;
 import com.spring2020.customerapp.domain.entity.Customer;
+import com.spring2020.customerapp.domain.enums.AppRoleEnum;
+import com.spring2020.customerapp.domain.enums.UserType;
+import com.spring2020.customerapp.exception.CommonException;
 import com.spring2020.customerapp.exception.MissingInputException;
 import com.spring2020.customerapp.mapper.CustomerMapper;
+import com.spring2020.customerapp.repository.AppUserRepository;
 import com.spring2020.customerapp.repository.CustomerRepository;
 import com.spring2020.customerapp.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +17,45 @@ import org.springframework.stereotype.Service;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private AppUserRepository appUserRepository;
 
     @Override
-    public void updateCustomer(int id, AppUserDto appUserDto) {
-        Customer customer = customerRepository.getOne(id);
-        CustomerDto dto = CustomerMapper.INSTANCE.toDto(customer);
-        dto.setAppUser(appUserDto);
-        customer = CustomerMapper.INSTANCE.toEntity(dto);
-        customerRepository.save(customer);
+    public void updateCustomer(int id, UpdateAppUserDto dto) {
+
+        Customer customer = customerRepository.findById(id).orElse(null);
+
+        if (customer == null) {
+            throw new CommonException("Can't find Customer with id [" + id + "]");
+        }
+        if (dto == null) {
+            throw new MissingInputException("missing input");
+        }
+
+        UpdateCustomerDto customerDto = CustomerMapper.INSTANCE.toUpdateDto(customer);
+        customerDto.getAppUser().setFirstName(dto.getFirstName());
+        customerDto.getAppUser().setLastName(dto.getLastName());
+        customerDto.getAppUser().setEmail(dto.getEmail());
+        customerDto.getAppUser().setPhone(dto.getPhone());
+
+        customer = CustomerMapper.INSTANCE.toEntity(customerDto);
+        appUserRepository.saveAndFlush(customer.getAppUser());
+        customerRepository.saveAndFlush(customer);
+
     }
 
     @Override
-    public CustomerDto createCustomer(AppUserDto appUserDto) {
+    public CustomerDto createCustomer(CreateAppUserDto appUserDto) {
         if (appUserDto == null) {
             throw new MissingInputException("missing input");
         }
-        CustomerDto dto = new CustomerDto();
-        dto.setAppUser(appUserDto);
+        CreateCustomerDto dto = new CreateCustomerDto();
+        dto.setAppUser(CustomerMapper.INSTANCE.toCrAppUserDto(appUserDto));
         Customer customer = CustomerMapper.INSTANCE.toEntity(dto);
+        customer.getAppUser().setActive(true);
+        customer.getAppUser().setUserType(UserType.CUSTOMER);
+        customer.getAppUser().setAppRole(AppRoleEnum.ROLE_CUSTOMER.getAppRole());
+        appUserRepository.save(customer.getAppUser());
         CustomerDto saved = CustomerMapper.INSTANCE.toDto(customerRepository.saveAndFlush(customer));
 
         return saved;

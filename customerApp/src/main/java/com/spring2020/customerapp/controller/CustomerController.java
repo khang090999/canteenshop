@@ -1,7 +1,8 @@
 package com.spring2020.customerapp.controller;
 
-import com.spring2020.customerapp.domain.dto.AppUserDto;
+import com.spring2020.customerapp.domain.dto.CreateAppUserDto;
 import com.spring2020.customerapp.domain.dto.CustomerDto;
+import com.spring2020.customerapp.domain.dto.UpdateAppUserDto;
 import com.spring2020.customerapp.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,13 @@ public class CustomerController {
     private CustomerService customerService;
 
     @PutMapping("/{id}/update")
-    public void updateCustomer(@PathVariable("id") int id, @RequestBody @Valid AppUserDto appUserDto) {
-        customerService.updateCustomer(id, appUserDto);
+    public void updateCustomer(@PathVariable("id") int id, @RequestBody @Valid UpdateAppUserDto dto) {
+        customerService.updateCustomer(id, dto);
     };
 
     @PostMapping("/create")
-    public CustomerDto createCustomer(@RequestBody @Valid AppUserDto appUserDto) {
-        return customerService.createCustomer(appUserDto);
+    public CustomerDto createCustomer(@RequestBody @Valid CreateAppUserDto dto) {
+        return customerService.createCustomer(dto);
     };
 
 }
