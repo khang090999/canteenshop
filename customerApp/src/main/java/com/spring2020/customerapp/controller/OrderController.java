@@ -24,7 +24,7 @@ public class OrderController {
     };
 
     @PutMapping("/{id}/cancel")
-    public void cancelOrder(@PathVariable("id") int id) {
+    public void cancelOrder(@PathVariable("id") Long id) {
         orderService.cancelOrder(id);
     };
 
