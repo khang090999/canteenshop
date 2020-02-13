@@ -1,15 +1,13 @@
 package com.spring2020.customerapp.service.impl;
 
-import com.spring2020.customerapp.domain.dto.CreateOrderDto;
-import com.spring2020.customerapp.domain.dto.NewOrderDetailDto;
-import com.spring2020.customerapp.domain.dto.OrderDetailDto;
-import com.spring2020.customerapp.domain.dto.OrderDto;
+import com.spring2020.customerapp.domain.dto.*;
 import com.spring2020.customerapp.domain.entity.CustomerOrder;
 import com.spring2020.customerapp.domain.entity.OrderDetail;
 import com.spring2020.customerapp.domain.entity.OrderStatus;
 import com.spring2020.customerapp.domain.enums.OrderStatusEnum;
 import com.spring2020.customerapp.exception.CommonException;
 import com.spring2020.customerapp.exception.MissingInputException;
+import com.spring2020.customerapp.mapper.ProductMapper;
 import com.spring2020.customerapp.repository.*;
 import com.spring2020.customerapp.service.OrderService;
 import com.spring2020.customerapp.mapper.OrderMapper;
@@ -45,16 +43,22 @@ public class OrderServiceImpl implements OrderService {
             throw new MissingInputException("missing input");
         }
         if(!customerRepository.findById(orderDto.getCustomerId()).isPresent()) {
-            throw new CommonException("CustomerId not Available");
+            throw new CommonException("CustomerId is not Available");
         }
-        if (orderDto.getId() != null) {
-            throw new CommonException("OrderDetail's Id must be empty");
-        }
+
         List<NewOrderDetailDto> listDetail = orderDto.getOrderDetails();
+        double totalPrice = 0;
         for (NewOrderDetailDto newOrderDetailDto : listDetail) {
-            if (!productRepository.findById(newOrderDetailDto.getProduct().getId()).isPresent())
-                throw new CommonException("ProductId not Available");
+            ProductDto productDto = ProductMapper.INSTANCE.toDto(productRepository.findById(newOrderDetailDto.getProduct().getId()).get());
+            listDetail.get(listDetail.indexOf(newOrderDetailDto)).setProduct(productDto);
+            totalPrice += (productDto.getPrice() * listDetail.get(listDetail.indexOf(newOrderDetailDto)).getQuantity());
         }
+        orderDto.setOrderDetails(listDetail);
+
+        if (orderDto.getTotalPrice() != totalPrice) {
+            throw new CommonException("Total Price is not correct");
+        }
+        orderDto.setTotalPrice(totalPrice);
 
         CustomerOrder customerOrder = OrderMapper.INSTANCE.toEntity(orderDto);
 

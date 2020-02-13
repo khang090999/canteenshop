@@ -3,7 +3,7 @@ package com.spring2020.customerapp.service.impl;
 import com.spring2020.customerapp.domain.dto.*;
 import com.spring2020.customerapp.domain.entity.Customer;
 import com.spring2020.customerapp.domain.enums.AppRoleEnum;
-import com.spring2020.customerapp.domain.enums.UserType;
+import com.spring2020.customerapp.domain.enums.UserTypeEnum;
 import com.spring2020.customerapp.exception.CommonException;
 import com.spring2020.customerapp.exception.MissingInputException;
 import com.spring2020.customerapp.mapper.CustomerMapper;
@@ -12,6 +12,7 @@ import com.spring2020.customerapp.repository.CustomerRepository;
 import com.spring2020.customerapp.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -19,6 +20,9 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
     @Autowired
     private AppUserRepository appUserRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @Override
     public void updateCustomer(int id, UpdateAppUserDto dto) {
@@ -53,11 +57,17 @@ public class CustomerServiceImpl implements CustomerService {
         dto.setAppUser(CustomerMapper.INSTANCE.toCrAppUserDto(appUserDto));
         Customer customer = CustomerMapper.INSTANCE.toEntity(dto);
         customer.getAppUser().setActive(true);
-        customer.getAppUser().setUserType(UserType.CUSTOMER);
+        customer.getAppUser().setUserType(UserTypeEnum.CUSTOMER);
         customer.getAppUser().setAppRole(AppRoleEnum.ROLE_CUSTOMER.getAppRole());
+        customer.getAppUser().setPassword(encoder.encode(customer.getAppUser().getPassword()));
         appUserRepository.save(customer.getAppUser());
         CustomerDto saved = CustomerMapper.INSTANCE.toDto(customerRepository.saveAndFlush(customer));
 
         return saved;
+    }
+
+    @Override
+    public CustomerDto getCustomer(int id) {
+        return CustomerMapper.INSTANCE.toDto(customerRepository.findById(id).get());
     }
 }
