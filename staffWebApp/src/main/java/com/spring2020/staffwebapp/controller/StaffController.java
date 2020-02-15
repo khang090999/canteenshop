@@ -1,23 +1,39 @@
 package com.spring2020.staffwebapp.controller;
 
+import com.spring2020.staffwebapp.domain.dto.DbResponseDto;
+import com.spring2020.staffwebapp.domain.dto.OrderCheckoutDto;
 import com.spring2020.staffwebapp.domain.dto.StaffProfileDto;
-import com.spring2020.staffwebapp.service.StaffService;
+import com.spring2020.staffwebapp.service.OrderCheckoutService;
+import com.spring2020.staffwebapp.service.StaffProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/staff")
+@RequestMapping("/staffs")
 public class StaffController
 {
     @Autowired
-    private StaffService staffService;
+    private StaffProfileService staffProfileService;
+    @Autowired
+    private OrderCheckoutService orderCheckoutService;
 
-    @GetMapping
-    public StaffProfileDto showAllAvailableProducts(@RequestParam(value = "Username") String username)
+    @GetMapping("/profile")
+    public StaffProfileDto viewStaffProfile(@RequestParam(value = "Username") String username)
     {
-        return staffService.viewStaffProfile(username);
+        return staffProfileService.viewStaffProfile(username);
+    }
+
+    @PostMapping("/profile")
+    public DbResponseDto updateStaffProfile(@RequestBody @Valid StaffProfileDto request)
+    {
+        return staffProfileService.updateStaff(request);
+    }
+
+    @PostMapping("/checkout")
+    public DbResponseDto checkoutOrderStaff(@RequestBody @Valid OrderCheckoutDto request)
+    {
+        return orderCheckoutService.checkoutOrderStaff(request);
     }
 }

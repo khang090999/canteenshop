@@ -1,14 +1,14 @@
 package com.spring2020.coffeeshop.controller;
 
-import com.spring2020.coffeeshop.domain.dto.StaffDto;
+import com.spring2020.coffeeshop.domain.dto.StaffCreateDto;
+import com.spring2020.coffeeshop.domain.dto.StaffDetailDto;
 import com.spring2020.coffeeshop.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import static com.spring2020.coffeeshop.util.ConstantUtil.CREATE_SUCCESS;
 
 @RestController
 @RequestMapping("/staffs")
@@ -18,9 +18,13 @@ public class StaffController {
     private StaffService staffService;
 
     @PostMapping
-    public StaffDto createStaff(@Valid @RequestBody StaffDto staffDto) {
-        return staffService.createStaff(staffDto);
+    public String createStaff(@Valid @RequestBody StaffCreateDto staffDto) {
+        staffService.createStaff(staffDto);
+        return CREATE_SUCCESS;
     }
 
-
+    @GetMapping
+    public StaffDetailDto findStaffByUsername(@RequestParam("username") String username) {
+        return staffService.findStaffByUsername(username);
+    }
 }

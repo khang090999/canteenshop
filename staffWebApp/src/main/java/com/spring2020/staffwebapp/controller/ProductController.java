@@ -1,14 +1,15 @@
 package com.spring2020.staffwebapp.controller;
 
+import com.spring2020.staffwebapp.domain.dto.DbResponseDto;
 import com.spring2020.staffwebapp.domain.dto.ProductDto;
-import com.spring2020.staffwebapp.service.ProductService;
+import com.spring2020.staffwebapp.service.ProductEditService;
+import com.spring2020.staffwebapp.service.ProductRetrieveService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -18,27 +19,38 @@ public class ProductController
 {
 
     @Autowired
-    private ProductService productService;
+    private ProductRetrieveService productRetrieveService;
+    @Autowired
+    private ProductEditService productEditService;
 
-    @GetMapping
+    @GetMapping("/all")
     public Page<ProductDto> showAllAvailableProducts(Pageable pageable)
     {
-        return productService.findAllProducts(pageable);
+        return productRetrieveService.findAllProducts(pageable);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/details")
-    public Optional<ProductDto> showProductDetails(@RequestParam(value = "Product Id") Long id)
+    public ProductDto showProductDetails(@RequestParam(value = "ProductId") long id)
     {
-        return productService.showProductDetails(id);
+        return productRetrieveService.showProductDetails(id);
     }
 
-    @GetMapping("/find")
-    public Page<ProductDto> findProducts(@RequestParam(value = "Product name", required = false) String name,
-                                         @RequestParam(value = "Category", required = false) Integer catetoryId,
-                                         @RequestParam(value = "Availability") Boolean isAvailable,
-                                         Pageable pageable)
+    @GetMapping("/search")
+    @ApiOperation(value = "Will search based on what is entered")
+    public Page<ProductDto> searchProducts(@RequestParam(value = "ProductName", required = false) String name,
+                                           @RequestParam(value = "Category", required = false) Integer categoryId,
+                                           @RequestParam(value = "Availability") @ApiParam(example = "true", required = true, value = "Status") Boolean isAvailable,
+                                           Pageable pageable)
     {
-        return productService.findProducts(pageable, name, catetoryId, isAvailable);
+        return productRetrieveService.findProducts(pageable, name, categoryId, isAvailable);
+    }
+
+    @PostMapping("/update")
+    @ApiOperation(value = "Update product availability")
+    public DbResponseDto editProductAvailability(@RequestParam(value = "ProductId") long id, @RequestParam(value = "isAvailable") boolean isAvailable)
+    {
+        return productEditService.editProductAvailability(id, isAvailable);
     }
 
 }
