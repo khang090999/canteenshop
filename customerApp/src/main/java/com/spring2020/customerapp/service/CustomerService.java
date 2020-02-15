@@ -9,4 +9,5 @@ public interface CustomerService {
 
     CustomerDto createCustomer(CreateAppUserDto dto);
 
+    CustomerDto getCustomer(int id);
 }

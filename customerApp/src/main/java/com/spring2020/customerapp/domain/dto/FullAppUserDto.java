@@ -1,15 +1,13 @@
 package com.spring2020.customerapp.domain.dto;
 
-import com.spring2020.customerapp.domain.entity.AppRole;
 import com.spring2020.customerapp.domain.enums.GenderEnum;
-import com.spring2020.customerapp.domain.enums.UserType;
+import com.spring2020.customerapp.domain.enums.UserTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -54,7 +52,7 @@ public class FullAppUserDto {
     private boolean isActive;
 
     @NotNull(message = "{userApp.userType.notNull}")
-    private UserType userType;
+    private UserTypeEnum userType;
 
     @Valid
     @NotNull

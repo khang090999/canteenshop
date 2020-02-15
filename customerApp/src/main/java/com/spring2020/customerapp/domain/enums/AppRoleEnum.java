@@ -15,7 +15,7 @@ public enum AppRoleEnum {
     AppRoleEnum(int id, String name) {
         appRole = new AppRole();
         this.appRole.setId(id);
-        this.appRole.setName(name);
+        this.appRole.setName(RoleNameEnum.valueOf(name));
     }
 
     public AppRole getAppRole() {
