@@ -1,0 +1,298 @@
+import React, { Component } from "react";
+import { BootstrapTable, TableHeaderColumn } from "react-bootstrap-table";
+import "react-bootstrap-table/dist/react-bootstrap-table-all.min.css";
+import * as actions from "../../store/actions/index";
+import { connect } from "react-redux";
+import Spinner from "../../components/Spinner/Spinner";
+
+import { Navbar, FormGroup, FormControl, Alert } from "react-bootstrap";
+import StaffModal from "../Components/Modal/StaffModal";
+import SwitchControl from "components/Switch";
+import moment from 'moment'
+
+class Staffs extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchValue: "",
+      successNotice: "",
+      successShow: false,
+      errorShow: false
+    };
+    this.fetchData = this.fetchData.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
+    this.handleSizePerPageChange = this.handleSizePerPageChange.bind(this);
+    this.activeFormatter = this.activeFormatter.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleChangeSwitch = this.handleChangeSwitch.bind(this);
+    this.handleAddSubmit = this.handleAddSubmit.bind(this);
+    this.handleAddCancel = this.handleAddCancel.bind(this);
+
+  }
+  componentDidMount() {
+    this.fetchData();
+  }
+
+  fetchData(
+    page = this.props.page,
+    sizePerPage = this.props.sizePerPage,
+    searchValue = this.state.searchValue
+  ) {
+    this.props.onFetchData(page - 1, sizePerPage, searchValue);
+  }
+
+  handlePageChange(page, sizePerPage) {
+    this.fetchData(page, sizePerPage, this.state.searchValue);
+  }
+
+  handleSizePerPageChange(sizePerPage) {
+    // When changing the size per page always navigating to the first page
+    this.fetchData(1, sizePerPage, this.state.searchValue);
+  }
+
+  handleChangeSwitch = (id, isActive) => {
+    this.setState({
+      successNotice: "Update successfully",
+      successShow: true,
+      errorShow: true
+    });
+    this.props.onUpdateStaff(id, isActive);
+  };
+
+  activeFormatter(cell, row) {
+    return (
+      <div className="col-md-4">
+        <SwitchControl
+          value={row.active}
+          onChange={() => {
+            this.handleChangeSwitch(row.id, !row.active);
+          }}
+        />
+      </div>
+    );
+  }
+
+  inputChangedHandler = event => {
+    this.setState({ searchValue: event.target.value });
+  };
+
+  handleSearch() {
+    this.setState({
+      successShow: false,
+      errorShow: false
+    });
+    this.fetchData(1, 20, this.state.searchValue);
+  }
+
+  handleAddCancel = () => {
+    this.setState({
+      addFormShow: false,
+      cancelAdd: true
+    });
+  };
+
+  handleAddSubmit(values) {
+    this.setState({
+      successNotice: "Your staff has been added.",
+      successShow: true,
+      addFormShow: false,
+      errorShow: true
+    });
+    this.props.onAddStaff(values);
+  }
+
+  render() {
+    const options = {
+      onPageChange: this.handlePageChange,
+      onSizePerPageList: this.handleSizePerPageChange,
+      page: this.props.page,
+      sizePerPage: this.props.sizePerPage,
+      prePage: "Previous",
+      nextPage: "Next",
+      firstPage: "First",
+      lastPage: "Last",
+      hideSizePerPage: true
+    };
+
+    let display = (
+      <div className="content">
+        <div className="row">
+          <div className="col-md-4 col-lg-4">
+            <Navbar.Form pullLeft>
+              <FormGroup>
+                <FormControl
+                  value={this.state.searchValue ? this.state.searchValue : ""}
+                  onChange={event => this.inputChangedHandler(event)}
+                  type="text"
+                  placeholder="Type to search"
+                />
+                <button
+                  onClick={() => this.handleSearch()}
+                  className="btn btn-simple  "
+                >
+                  <span>
+                    <i className="fa fa-search"></i>
+                  </span>
+                </button>
+              </FormGroup>
+            </Navbar.Form>{" "}
+          </div>
+          <div className="col-md-4 col-lg-4 pull-right">
+            <button
+              onClick={() => this.setState({ addFormShow: true })}
+              type="button"
+              className="btn btn-info btn-fill btn-wd pull-right"
+            >
+              <span className="btn-label"></span> <i className="fa fa-plus"></i>{" "}
+              Add Staff
+            </button>
+          </div>
+        </div>
+
+        <br />
+        <BootstrapTable
+          data={this.props.data}
+          options={options}
+          fetchInfo={{ dataTotalSize: this.props.totalSize }}
+          remote
+          pagination
+          striped
+          hover
+          condensed
+        >
+          <TableHeaderColumn
+            dataField="id"
+            isKey
+            dataAlign="center"
+            width="14%"
+          >
+            Id
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="username"
+            dataAlign="center"
+            width="20%"
+          >
+            Username
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="firstName"
+            dataAlign="center"
+            width="14%"
+          >
+            First name
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="lastName"
+            dataAlign="center"
+            width="14%"
+          >
+            Last name
+          </TableHeaderColumn>
+          <TableHeaderColumn dataField="gender" dataAlign="center" width="14%">
+            Gender
+          </TableHeaderColumn>
+          <TableHeaderColumn dataField="phone" dataAlign="center" width="14%">
+            Phone
+          </TableHeaderColumn>
+          <TableHeaderColumn
+            dataField="active"
+            dataAlign="center"
+            dataFormat={this.activeFormatter}
+            width="10%"
+          >
+            Active
+          </TableHeaderColumn>
+        </BootstrapTable>
+        <StaffModal
+          show={this.state.addFormShow}
+          hide={() => this.handleAddCancel()}
+          initialValues={{
+            gender:'M',
+            dob:moment().subtract(18,'years').startOf("year").format('YYYY-MM-DD')
+          }}
+          title="Add Staff"
+          submitStaff={values => this.handleAddSubmit(values)}
+        />
+
+        {/* delete popup */}
+      </div>
+    );
+    if (this.props.loading) {
+      display = <Spinner />;
+    }
+    let errorMsg = null;
+    if (this.props.error && this.state.errorShow) {
+      errorMsg = (
+        <Alert
+          bsStyle="danger"
+          onDismiss={() => this.setState({ errorShow: false })}
+        >
+          {this.props.error}
+        </Alert>
+      );
+    }
+    let successMsg = null;
+    if (
+      this.state.successShow &&
+      this.state.successNotice !== "" &&
+      !this.props.error
+    ) {
+      successMsg = (
+        <Alert
+          bsStyle="success"
+          onDismiss={() =>
+            this.setState({ successShow: false, successNotice: "" })
+          }
+        >
+          {this.state.successNotice}
+        </Alert>
+      );
+    }
+    if (this.props.addSuccess || this.props.updateSuccess) {
+      this.fetchData(1, 20, this.state.searchValue);
+    }
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-12">
+            <div className="card">
+              <div className="header">
+                <h4>Staffs</h4>
+              </div>
+              {errorMsg}
+              {successMsg}
+              {display}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    loading: state.staff.loading,
+    data: state.staff.data,
+    error: state.staff.error,
+    totalSize: state.staff.total,
+    page: state.staff.page,
+    sizePerPage: state.staff.sizePerPage,
+    addSuccess: state.staff.addSuccess,
+    updateSuccess: state.staff.updateSuccess
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchData: (page, size, search) =>
+      dispatch(actions.getStaffs(page, size, search)),
+    onUpdateStaff: (staffId, isActive) =>
+      dispatch(actions.updateStaff(staffId, isActive)),
+    onAddStaff: data => dispatch(actions.addStaff(data))
+
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Staffs);
