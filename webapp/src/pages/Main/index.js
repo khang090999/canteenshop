@@ -36,20 +36,16 @@ class Main extends Component {
         this.props.hideMobileMenu();
       }
     })
-    let redirectPath=localStorage.getItem("role")=='MANAGER'?<Redirect to="/authManager" />:<Redirect to="/authStaff" />
 
     let display = (
       <div className="wrapper">
         <Switch>
-          <Route path="/authManager" component={Auth} />
-          <Route path="/authStaff" component={AuthStaff} />
-          {redirectPath}
+          <Route path="/auth" component={Auth} />
         </Switch>
       </div>
     )
     if (this.props.isAuthenticated ) {
-      if(this.props.role=="MANAGER"){
-
+      if(localStorage.getItem("role")=="ROLE_MANAGER"){
       display = (
         <div className="wrapper">
           <div className="close-layer" onClick={this.props.hideMobileMenu}></div>
@@ -59,7 +55,7 @@ class Main extends Component {
             <Header />
             <Route path="/" exact component={Dashboard} />
             <Route path="/logout" component={Logout} />
-            <Route path="/authManager" component={Auth} />
+            <Route path="/auth" component={Auth} />
             <Route path="/order" component={Order} />
             <Route path="/product" component={Product} />
             <Route path="/usermng" component={UserManagement} />
@@ -69,7 +65,7 @@ class Main extends Component {
         </div>
       )
     }
-    else if(this.props.role=="STAFF"){
+    else if(localStorage.getItem("role")=="ROLE_STAFF"){
       display = (
         <div className="wrapper">
           <div className="close-layer" onClick={this.props.hideMobileMenu}></div>
@@ -79,13 +75,20 @@ class Main extends Component {
             <Header />
             <Route path="/" exact component={CheckOut} />
             <Route path="/checkout" component={CheckOut} />
-            <Route path="/authStaff" component={AuthStaff} />
+            <Route path="/auth" component={Auth} />
             <Route path="/profile" component={UserProfile} />
-            <Route path="/logout" component={StaffLogout} />
+            <Route path="/logout" component={Logout} />
             <Footer />
           </div>
         </div>
         )
+    }else{
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('expiryDate')
+      localStorage.removeItem('userId')
+      localStorage.removeItem('role')
+      localStorage.removeItem('username')
+  
     }
   }
     return (

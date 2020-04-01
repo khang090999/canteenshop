@@ -15,7 +15,7 @@ class Auth extends Component {
 
     render() {
 
-        let form = <LoginForm title='Manager' onSubmit={values => this.props.onAuth(values["username"], values["password"])} />
+        let form = <LoginForm onSubmit={values => this.props.onAuth(values["username"], values["password"])} />
         if (this.props.loading) {
             form = <Spinner />
         }
@@ -66,7 +66,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (username, password) => dispatch(actions.auth(username, password)),
+        onAuth: (username, password) => dispatch(actions.authStaff(username, password)),
         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
     }
 }

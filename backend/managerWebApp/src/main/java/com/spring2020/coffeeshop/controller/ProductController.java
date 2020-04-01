@@ -2,7 +2,6 @@ package com.spring2020.coffeeshop.controller;
 
 import com.spring2020.coffeeshop.domain.dto.ProductDto;
 import com.spring2020.coffeeshop.domain.dto.ProductImageDto;
-import com.spring2020.coffeeshop.domain.entity.Product;
 import com.spring2020.coffeeshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

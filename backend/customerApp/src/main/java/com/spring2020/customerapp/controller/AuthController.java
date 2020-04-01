@@ -1,5 +1,7 @@
 package com.spring2020.customerapp.controller;
 
+import com.spring2020.customerapp.domain.entity.AppUser;
+import com.spring2020.customerapp.repository.AppUserRepository;
 import com.spring2020.customerapp.security.JwtTokenProvider;
 import com.spring2020.customerapp.security.payload.JwtAuthenticationResponse;
 import com.spring2020.customerapp.security.payload.LoginRequest;
@@ -26,6 +28,9 @@ public class AuthController {
     @Autowired
     private JwtTokenProvider tokenProvider;
 
+    @Autowired
+    private AppUserRepository appUserRepository;
+
     @PostMapping("/login")
     public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -38,10 +43,18 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
+
+        Long appUserId = tokenProvider.getUserIdFromJwt(jwt);
+        AppUser appUser = appUserRepository.findById(appUserId).orElse(null);
+        String role = "";
+        if(appUser != null) {
+            role = appUser.getAppRole().getName().name();
+        }
+
         JwtAuthenticationResponse response = new JwtAuthenticationResponse(jwt,
                 tokenProvider.getUserIdFromJwt(jwt),
                 tokenProvider.getExpiryDateFromJwt(jwt).getTime(),
-                "CUSTOMER"
+                role
         );
         return ResponseEntity.ok(response);
     }

@@ -1,6 +1,7 @@
 package com.spring2020.coffeeshop.service;
 
 import com.spring2020.coffeeshop.domain.dto.AppUserDto;
+import com.spring2020.coffeeshop.domain.entity.AppUser;
 import com.spring2020.coffeeshop.domain.enums.UserTypeEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,6 @@ public interface AppUserService {
     Page<AppUserDto> findAllAppUsers(UserTypeEnum userType, Pageable pageable);
 
     void updateAppUserStatus(UserTypeEnum userType, long id, boolean status);
+
+    AppUser findAppUserByUsername(String username);
 }

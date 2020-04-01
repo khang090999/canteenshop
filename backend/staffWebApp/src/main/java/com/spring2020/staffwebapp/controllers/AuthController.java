@@ -49,12 +49,12 @@ public class AuthController
 
         /*Create response object*/
         Long appUserId = tokenProvider.getUserIdFromJwt(token);
-        String username = appUserRepository.findById(appUserId).orElse(new AppUser()).getUsername();
+        AppUser appUser = appUserRepository.findById(appUserId).orElse(new AppUser());
         JwtAuthenticationResponse response = new JwtAuthenticationResponse(token,
                 appUserId,
-                username,
+                appUser.getUsername(),
                 tokenProvider.getExpiryDateFromJwt(token).getTime(),
-                "STAFF");
+                appUser.getAppRole().getName().toString());
         /*=======================*/
 
         return ResponseEntity.ok(response);

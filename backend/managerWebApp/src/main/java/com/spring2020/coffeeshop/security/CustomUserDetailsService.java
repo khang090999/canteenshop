@@ -23,6 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
 
+
     //This method is used by JWTAuthenticationFilter
     public UserDetails loadUserById(Long id) {
         AppUser appUser = appUserRepository.findById(id).orElseThrow(
