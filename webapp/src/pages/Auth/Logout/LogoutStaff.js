@@ -8,7 +8,7 @@ class Logout extends Component {
         this.props.onLogout()
     }
     render() {
-        return <Redirect to='/authStaff'/>
+        return <Redirect to='/auth'/>
 
         
     }

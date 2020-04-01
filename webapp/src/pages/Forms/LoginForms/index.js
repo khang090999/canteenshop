@@ -20,11 +20,10 @@ const validate = values => {
 const StackedForm = ({
   submitting,
   handleSubmit,
-  title
 }) => (
   <div className="card">
     <div className="header text-center">
-<h4>{title} Login</h4>
+<h4>Login</h4>
     </div>
     <div className="content">
       <form onSubmit={handleSubmit}>

@@ -52,10 +52,10 @@ class _LoginPageState extends State<LoginPage> {
       if (response.statusCode == 200) {
         jsonResponse = json.decode(response.body);
         if (jsonResponse != null) {
+          if(jsonResponse["role"] != null && jsonResponse["role"].toString() == "ROLE_CUSTOMER"){
           setState(() {
             _isLoading = false;
           });
-          print(jsonResponse);
           sharedPreferences.setString(
               "accessToken", jsonResponse['accessToken']);
           sharedPreferences.setString("username", username);
@@ -64,13 +64,18 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (BuildContext context) => MainPage()),
               (Route<dynamic> route) => false);
+        }else{
+            setState(() {
+              _isLoading = false;
+              message = "Invalid role";
+            });
+          }
         }
       } else {
         setState(() {
           _isLoading = false;
           message = "Username or password is incorrect";
         });
-        print(response.body);
       }
     } else {
       setState(() {

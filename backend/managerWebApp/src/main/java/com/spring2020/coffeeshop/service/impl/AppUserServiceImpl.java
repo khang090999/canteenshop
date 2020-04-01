@@ -67,6 +67,12 @@ public class AppUserServiceImpl implements AppUserService {
 
     }
 
+    @Override
+    public AppUser findAppUserByUsername(String username) {
+        return appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User with username " + username + "not found"));
+    }
+
     private AppUser findAppUserByIdReturnAppUser(long id) {
         return appUserRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));

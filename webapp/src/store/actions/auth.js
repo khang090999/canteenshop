@@ -65,7 +65,7 @@ export const auth = (username, password) =>{
             localStorage.setItem('expiryDate', expiryDate)
             localStorage.setItem('userId', response.data.userId)
             localStorage.setItem('role', response.data.role)
-
+            localStorage.setItem('username', response.data.username)
             dispatch(authSuccess(response.data.accessToken, response.data.userId, response.data.role))
             dispatch(checkAuthTimeOut(response.data.expiryDate- (new Date().getTime())))
         })
