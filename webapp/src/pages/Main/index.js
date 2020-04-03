@@ -45,53 +45,53 @@ class Main extends Component {
         </Switch>
       </div>
     )
-    if (this.props.isAuthenticated) {
-      if (localStorage.getItem("role") == "ROLE_MANAGER") {
-        display = (
-          <div className="wrapper">
-            <div className="close-layer" onClick={this.props.hideMobileMenu}></div>
-            <SideBar />
+    if (this.props.isAuthenticated ) {
+      if(localStorage.getItem("role")=="ROLE_MANAGER"){
+      display = (
+        <div className="wrapper">
+          <div className="close-layer" onClick={this.props.hideMobileMenu}></div>
+          <SideBar />
 
-            <div className="main-panel">
-              <Header />
-              <Route path="/" exact component={Dashboard} />
-              <Route path="/logout" component={Logout} />
-              <Route path="/auth" component={Auth} />
-              <Route path="/order" component={Order} />
-              <Route path="/product" component={Product} />
-              <Route path="/usermng" component={UserManagement} />
-              <Route path="/changepw" component={ChangePassword} />
-              <Footer />
-            </div>
+          <div className="main-panel">
+            <Header />
+            <Route path="/" exact component={Dashboard} />
+            <Route path="/logout" component={Logout} />
+            <Route path="/auth" component={Auth} />
+            <Route path="/order" component={Order} />
+            <Route path="/product" component={Product} />
+            <Route path="/usermng" component={UserManagement} />
+            <Route path="/changepw" component={ChangePassword} />
+            <Footer />
           </div>
-        )
-      }
-      else if (localStorage.getItem("role") == "ROLE_STAFF") {
-        display = (
-          <div className="wrapper">
-            <div className="close-layer" onClick={this.props.hideMobileMenu}></div>
-            <StaffSideBar />
-
-            <div className="main-panel">
-              <Header />
-              <Route path="/" exact component={CheckOut} />
-              <Route path="/checkout" component={CheckOut} />
-              <Route path="/auth" component={Auth} />
-              <Route path="/profile" component={UserProfile} />
-              <Route path="/logout" component={Logout} />
-              <Footer />
-            </div>
-          </div>
-        )
-      } else {
-        localStorage.removeItem('accessToken')
-        localStorage.removeItem('expiryDate')
-        localStorage.removeItem('userId')
-        localStorage.removeItem('role')
-        localStorage.removeItem('username')
-
-      }
+        </div>
+      )
     }
+    else if(localStorage.getItem("role")=="ROLE_STAFF"){
+      display = (
+        <div className="wrapper">
+          <div className="close-layer" onClick={this.props.hideMobileMenu}></div>
+          <StaffSideBar />
+
+          <div className="main-panel">
+            <Header />
+            <Route path="/" exact component={CheckOut} />
+            <Route path="/checkout" component={CheckOut} />
+            <Route path="/auth" component={Auth} />
+            <Route path="/profile" component={UserProfile} />
+            <Route path="/logout" component={Logout} />
+            <Footer />
+          </div>
+        </div>
+        )
+    }else{
+      localStorage.removeItem('accessToken')
+      localStorage.removeItem('expiryDate')
+      localStorage.removeItem('userId')
+      localStorage.removeItem('role')
+      localStorage.removeItem('username')
+  
+    }
+  }
     return (
       <div className={cx({
         'nav-open': this.props.mobileNavVisibility === true
@@ -106,7 +106,7 @@ const mapStateToProp = state => {
   return {
     mobileNavVisibility: state.Layout.mobileNavVisibility,
     isAuthenticated: state.Auth.token !== null,
-    role: state.Auth.role
+    role:state.Auth.role
   }
 };
 
