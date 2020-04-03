@@ -23,7 +23,7 @@ class SideBar extends Component {
 
         <div className="brand">
           <a href="/" className="brand-name">
-            <img src={'http://jslancer.com/wp-content/uploads/2017/04/js-lancer-logo2-1.png'} alt="logo" className="logo" />
+            <img height='80px' src={'https://firebasestorage.googleapis.com/v0/b/cshop-86866.appspot.com/o/logo%2Flogo.png?alt=media&token=f5ab08a9-229d-46c5-b803-fc62f27cbd03'} alt="logo" className="logo" />
           </a>
 
         </div>

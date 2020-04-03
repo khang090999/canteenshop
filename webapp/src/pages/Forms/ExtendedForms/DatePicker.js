@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DateRangePicker } from 'react-dates';
 import moment from 'moment';
-
+import { isInclusivelyBeforeDay } from 'react-dates'
 export default class DatePicker extends Component {
   state = {
     startDate: moment().subtract(1, 'months').startOf('month'),
@@ -20,7 +20,7 @@ export default class DatePicker extends Component {
               startDateId={this.props.startDateId}
               endDate={this.state.endDate}
               endDateId={this.props.endDateId}
-              isOutsideRange={day => (moment().diff(day) < 0)}
+              isOutsideRange={day => !isInclusivelyBeforeDay(day, moment())}
               focusedInput={this.state.dateRangeFocusedInput}
               onFocusChange={focusedInput => {
                 this.setState({dateRangeFocusedInput: focusedInput})

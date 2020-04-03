@@ -43,7 +43,7 @@ class Checkout extends Component {
                     </Panel.Heading>
                     <Panel.Body collapsible>
                         {this.props.data[el].map(product => (
-                            <div key={product.name} className="col-md-4 col-lg-4 ftco-animate">
+                            <div key={product.name} className="">
                                 <div className="card" style={{ border: "none" }} >
                                     <div className="h-25 d-inline-block">
                                         <img src={product.url_img} className="img-thumbnail img-fluid" style={{ width: "100%", height: "10vw", objectFit: "cover" }} />

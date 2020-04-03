@@ -41,6 +41,7 @@ class Main extends Component {
       <div className="wrapper">
         <Switch>
           <Route path="/auth" component={Auth} />
+          <Redirect to="/auth" />
         </Switch>
       </div>
     )
