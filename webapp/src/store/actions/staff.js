@@ -138,7 +138,7 @@ export const addStaff = (data) => {
         dispatch(addStaffSuccess())
       })
       .catch(error => {
-        dispatch(addStaffFail(error.response.data))
+        dispatch(addStaffFail(error.response.data.message))
       });
   }
 }
