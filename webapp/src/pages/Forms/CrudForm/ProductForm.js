@@ -6,6 +6,9 @@ const validate = values => {
     if (!values.name) {
         errors.name = 'Product name is required';
     }
+    if (!values.description) {
+        errors.description = 'Product description is required';
+    }
     if (!values.category) {
         errors.category = 'Product category is required';
     }
