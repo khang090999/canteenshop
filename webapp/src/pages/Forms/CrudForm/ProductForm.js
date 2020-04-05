@@ -6,6 +6,9 @@ const validate = values => {
     if (!values.name) {
         errors.name = 'Product name is required';
     }
+    if (!values.category) {
+        errors.category = 'Product category is required';
+    }
     if (!values.price) {
         errors.price = 'Product price is required';
     } else if (isNaN(values.price)) {
@@ -68,7 +71,8 @@ const ProductForm = ({
                             name="category"
                             component="select"
                             className="form-control"
-                        >
+                        > 
+                        <option key="-1"></option>
                             {
                                 dataList.map(el =>
                                     <option key={el.id} value={el.id}>{el.name}</option>

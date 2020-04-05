@@ -23,15 +23,12 @@ class Auth extends Component {
         let errorMessage = null;
         if (this.props.error) {
             let msg=null
-            switch(this.props.error.message){
-                case "EMAIL_NOT_FOUND":
-                    msg="Email not found"
-                    break;
-                case "INVALID_PASSWORD":
-                    msg="Invalid password"
+            switch(this.props.error){
+                case "Unauthorized":
+                    msg="Username or password is not correct"
                     break;
                 default:
-                    msg="ERROR!!!"
+                    msg="Error"
                     break
             }
             errorMessage = <Alert bsStyle="danger">{msg}</Alert>
