@@ -94,7 +94,7 @@ export const authStaff = (username, password) =>{
             dispatch(checkAuthTimeOut(response.data.expiryTime- (new Date().getTime())))
         })
         .catch(err =>{
-            dispatch(authFail(err))
+            dispatch(authFail(err.response.data.error))
         })
     }
 }
