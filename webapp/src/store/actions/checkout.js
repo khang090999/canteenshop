@@ -1,11 +1,14 @@
 import * as actionTypes from './actionTypes'
 import axios from '../../axios-staff'
 
-export const getAvailableProductSuccess = (data,product,price) => {
+export const getAvailableProductSuccess = (data,product,total,page,sizePerPage) => {
     return {
         type: actionTypes.GET_AVAILABLE_PRODUCT_SUCCESS,
         data: data,
         product:product,
+        total:total,
+        page: page,
+        sizePerPage: sizePerPage
     }
 }
 
@@ -23,10 +26,16 @@ export const getAvailableProductStart = () => {
     }
 }
 
-export const getAvailableProduct = () => {
+export const getAvailableProduct = (page, size,search) => {
     return dispatch => {
         dispatch(getAvailableProductStart())
-        axios.get('/products/search?Availability=true', { headers: { "Authorization": `Bearer ${localStorage.getItem("accessToken")}` } })
+        let url = '/products/search?Availability=true'
+        if (search) {
+        url += "&page=" + page + "&size=" + size +"&ProductName=" + search;
+        }else{
+            url += "&page=" + page + "&size=" + size;
+        }
+        axios.get(url, { headers: { "Authorization": `Bearer ${localStorage.getItem("accessToken")}` } })
             .then(response => {
                 let category={}
                 let product={}
@@ -43,9 +52,7 @@ export const getAvailableProduct = () => {
                         category[element.category.name].push(element)
                     }
                 });
-           
-
-                dispatch(getAvailableProductSuccess(category,product))
+                dispatch(getAvailableProductSuccess(category,product,response.data.totalElements,page,size))
             })
             .catch(error => {
                 dispatch(getAvailableProductFail(error))
@@ -102,7 +109,6 @@ export const purchaseProduct = (staff,order) => {
         note:"",
         status:{id:4}
     }
-    console.log(data)
         axios.post('/staffs/checkout',data, { headers: { "Authorization": `Bearer ${localStorage.getItem("accessToken")}` } })
             .then(response =>
                 dispatch(purchaseProductSuccess())

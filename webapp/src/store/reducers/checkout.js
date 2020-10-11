@@ -16,13 +16,18 @@ const getAvailableProductSuccess = (state, action) => {
         loading: false,
         totalPrice: 0,
         orderBill: action.product,
+        page: action.page,
+        sizePerPage: action.sizePerPage,
+        total: action.total
     })
 }
 const getAvailableProductFail = (state, action) => {
     return updateObject(state, {
         error: action.error,
         loading: false,
-
+        totalPrice: 0,
+        page: 1,
+        sizePerPage: 10,
     })
 }
 
@@ -88,7 +93,10 @@ export default function reducer(state = {
     error: null,
     loading: false,
     orderBill: null,
-    purchaseSuccess: false
+    purchaseSuccess: false,
+    total: 0,
+    page: 1,
+    sizePerPage: 10,
 }, action) {
     switch (action.type) {
         case actionTypes.GET_AVAILABLE_PRODUCT_START: return getAvailableProductStart(state, action)
