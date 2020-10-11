@@ -32,6 +32,7 @@ export const getProduct = (page, size,search) => {
         }else {
             url+='?page='+page+'&size='+size
         }
+        console.log(url)
         axios.get(url, { headers: {"Authorization" : `Bearer ${localStorage.getItem("accessToken")}`} })
             .then(response => {
                 dispatch(getProductSuccess(response.data.content, response.data.totalElements, page, size))
