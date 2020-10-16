@@ -1,21 +1,20 @@
-importScripts('https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/7.9.1/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/7.23.0/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/7.23.0/firebase-messaging.js');
 let config = {
-   messagingSenderId: "754505452158"
+    apiKey: "AIzaSyDzqPx-eug7y8DwqWWxGg--t5e3Lp1JfRQ",
+    authDomain: "cshop-86866.firebaseapp.com",
+    databaseURL: "https://cshop-86866.firebaseio.com",
+    projectId: "cshop-86866",
+    storageBucket: "cshop-86866.appspot.com",
+    messagingSenderId: "754505452158",
+    appId: "1:754505452158:web:e0b1e5028bdfc1120f262f",
+    measurementId: "G-D5VLSWKYW0"
 };
 firebase.initializeApp(config);
 const messaging = firebase.messaging();
-messaging.onMessage(payload => {
-    console.log('Message received. ', payload);
-    const options = {
-        body: payload.notification.body,
-        icon: payload.notification.icon
-     }
-    return self.registration.showNotification(title, options);
- })
+
 messaging.setBackgroundMessageHandler(payload => {
    const title = payload.notification.title;
-   alert('asdf')
    const options = {
       body: payload.notification.body,
       icon: payload.notification.icon
@@ -35,7 +34,7 @@ self.addEventListener("notificationclick", function(event) {
             let matchingClient = null;
             for (let i = 0; i < windowClients.length; i++) {
                 const windowClient = windowClients[i];
-                if (windowClient.url === feClickAction) {
+                if (windowClient.url == feClickAction) {
                     matchingClient = windowClient;
                     break;
                 }
@@ -46,5 +45,7 @@ self.addEventListener("notificationclick", function(event) {
                 return clients.openWindow(feClickAction);
             }
         });
-        event.waitUntil(promiseChain);
+        event.waitUntil(
+            promiseChain
+            );
  });
