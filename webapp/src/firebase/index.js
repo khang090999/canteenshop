@@ -38,7 +38,14 @@ export function initializePush() {
              console.log("Error Occurred", error);
           }
          });
-        
+         messaging.onMessage(payload => {
+            console.log('Message received. ', payload);
+            const options = {
+                body: payload.notification.body,
+                icon: payload.notification.icon
+             }
+            
+          })
  }
 
 
