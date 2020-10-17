@@ -31,6 +31,6 @@ if (module.hot) {
 }
 
 initializePush()
-
 registerServiceWorker();
+
 
