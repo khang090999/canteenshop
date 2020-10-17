@@ -121,8 +121,8 @@ public class OrderInfoServiceImpl implements OrderInfoService
                 CustomerOrder customerOrder = customerOrderOptional.get();
                 /*Check if order is canceled or completed.
                  * NOT allowed to change canceled or completed orders*/
-                if (customerOrder.getStatus().getId().equals(OrderStatusEnum.Completed.getId())
-                        || customerOrder.getStatus().getId().equals(OrderStatusEnum.Canceled.getId()))
+                if (!customerOrder.getStatus().getId().equals(OrderStatusEnum.Completed.getId())
+                        && !customerOrder.getStatus().getId().equals(OrderStatusEnum.Canceled.getId()))
                 {
                     customerOrder.setStatus(orderStatusOptional.get());
                     try

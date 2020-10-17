@@ -51,6 +51,12 @@ export {
     getCancelReason
 } from './order'
 
+export {
+    getOrdersStaff,
+    getCancelReasonStaff,
+    cancelOrder
+} from './orderStaff'
+
 export{
 getStaffProfile,
 updateStaffProfile
