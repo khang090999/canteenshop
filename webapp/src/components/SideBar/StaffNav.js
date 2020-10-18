@@ -18,6 +18,12 @@ class Nav extends Component {
             <p>Check Out</p>
           </Link>
         </li>
+        <li className={this.isPathActive('/orderStaff') ? 'active' : null}>
+          <Link to="/orderStaff">
+            <i className="fa fa-shopping-cart"></i>
+            <p>List of Orders</p>
+          </Link>
+        </li>
         <li>
           <Link to="/logout">
             <i className="fa fa-sign-out"></i>
