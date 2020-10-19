@@ -203,7 +203,6 @@ class Customer extends Component {
         if (this.state.successShow && this.state.successNotice !== '' && !this.props.error) {
             successMsg = <Alert bsStyle="success" onDismiss={() => this.setState({ successShow: false, successNotice: '' })}>{this.state.successNotice}</Alert>
         }
-        console.log(this.props.updateSuccess)
         if (this.props.deleteSuccess || this.props.updateSuccess || this.props.addSuccess) {
             this.fetchData(1, 20, this.state.searchValue)
         }

@@ -9,6 +9,7 @@ import statistic from './statistic'
 import customerAction from './customerAction'
 import staff from './staff'
 import order from './order'
+import orderStaff from './orderStaff'
 import staff_profile from './staff_profile'
 import checkout from './checkout'
 import customerOrder from './customerOrder'
@@ -21,6 +22,7 @@ export default {
   statistic,
   staff,
   order,
+  orderStaff,
   customerAction,
   staff_profile,
   checkout,

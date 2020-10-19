@@ -23,6 +23,7 @@ import * as actions from '../../store/actions/index'
 import Product from '../Product';
 import UserManagement from '../UserManagement'
 import Order from '../Order/Order';
+import OrderStaffSide from '../OrderStaffSide/OrderStaff';
 import CheckOut from '../Checkout'
 import CustomerOrder from '../CustomerOrder'
 
@@ -77,6 +78,7 @@ class Main extends Component {
             <Route path="/" exact component={CheckOut} />
             <Route path="/checkout" component={CheckOut} />
             <Route path="/auth" component={Auth} />
+            <Route path="/orderStaff" component={OrderStaffSide} />
             <Route path="/profile" component={UserProfile} />
             <Route path="/logout" component={Logout} />
             <Footer />

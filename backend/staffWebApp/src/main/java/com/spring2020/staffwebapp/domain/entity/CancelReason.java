@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "Cancel_reason")
 public class CancelReason {
     @Id
@@ -20,6 +23,7 @@ public class CancelReason {
     private Long id;
 
     @Column(nullable = false)
+    @CreatedDate
     private LocalDateTime cancelAt;
 
     @Column(nullable = false, length = 500)
